@@ -4,6 +4,8 @@ Chat with your local **pi coding agent** inside Obsidian. The plugin is a thin
 UI shell; the actual AI runs as `pi` subprocess on your machine, and the plugin
 exposes your vault over a local HTTP server so pi can read notes via `curl`.
 
+> 📖 [中文文档](./README.zh-CN.md) | [Troubleshooting](./TROUBLESHOOTING.md)
+
 ## Architecture
 
 ```
@@ -52,8 +54,11 @@ Copy the whole `obsidian-pi-chat/` folder (or just `main.js`, `styles.css`,
 `manifest.json`, `versions.json`) into:
 
 ```
-<Vault>/.obsidian/plugins/obsidian-pi-chat/
+<Vault>/.obsidian/plugins/local-pi-chat/
 ```
+
+The **plugin id** is `local-pi-chat` (the folder name in the vault must match
+the `id` field in `manifest.json`). The GitHub repo name is unrelated.
 
 Then enable **Pi Chat** in **Settings → Community plugins**.
 

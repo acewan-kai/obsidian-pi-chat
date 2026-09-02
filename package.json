@@ -1,6 +1,6 @@
 {
-  "name": "obsidian-pi-chat",
-  "version": "0.1.0",
+  "name": "local-pi-chat",
+  "version": "0.2.0",
   "description": "Chat with your local pi coding agent inside Obsidian. Reads your vault via local HTTP endpoints.",
   "main": "main.js",
   "scripts": {

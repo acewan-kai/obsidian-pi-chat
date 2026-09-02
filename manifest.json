@@ -1,7 +1,7 @@
 {
-  "id": "obsidian-pi-chat",
+  "id": "local-pi-chat",
   "name": "Pi Chat",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minAppVersion": "1.5.0",
   "description": "Chat with your local pi coding agent. Pi runs on your machine; this plugin provides the UI and exposes your vault over a local HTTP endpoint so pi can read it via curl.",
   "author": "acewan",

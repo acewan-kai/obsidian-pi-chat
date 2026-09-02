@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-09-02
+
+### Changed
+- **Plugin id**: `obsidian-pi-chat` → `local-pi-chat` (Obsidian's automated
+  review rejects ids containing the substring `obsidian`; the GitHub repo
+  name is unchanged). Users on v0.1.0 will need to re-install under the
+  new folder name `<Vault>/.obsidian/plugins/local-pi-chat/`.
+
 ## [0.1.0] - 2026-09-02
 
 ### Added

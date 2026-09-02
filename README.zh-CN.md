@@ -48,8 +48,10 @@ npm run build
 把 `main.js`、`styles.css`、`manifest.json`、`versions.json` 这四个文件复制到：
 
 ```
-<Vault>/.obsidian/plugins/obsidian-pi-chat/
+<Vault>/.obsidian/plugins/local-pi-chat/
 ```
+
+**插件 id 是 `local-pi-chat`**（vault 里的文件夹名必须跟 `manifest.json` 里的 `id` 字段一致；GitHub 仓库名无关）。
 
 然后在 **Settings → Community plugins** 里启用 **Pi Chat**。
 

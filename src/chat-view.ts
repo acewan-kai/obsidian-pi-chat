@@ -72,7 +72,7 @@ export class PiChatView extends ItemView {
       // @ts-ignore — internal API but standard
       (this.app as any).setting.open();
       // @ts-ignore
-      (this.app as any).setting.openTabById("obsidian-pi-chat");
+      (this.app as any).setting.openTabById("local-pi-chat");
     });
 
     // Messages area.
