@@ -2,8 +2,13 @@ name: Release
 
 on:
   push:
+    # Trigger on any tag that looks like a version, with or without a 'v' prefix.
+    # We accept both `v0.2.0` and `0.2.0` so contributors can use either
+    # convention. The release we publish uses the version WITHOUT the 'v',
+    # because that's what Obsidian's automated plugin review requires.
     tags:
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: write
@@ -35,14 +40,24 @@ jobs:
             fs.writeFileSync('versions.json', JSON.stringify(v, null, 2) + '\n');
           "
 
-      - name: Package
+      - name: Compute release tag
+        id: tag
+        # Strip optional leading 'v' from the pushed tag so the release
+        # is tagged with the bare semver, which is what Obsidian expects.
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Package
+        run: |
+          VERSION="${{ steps.tag.outputs.version }}"
           zip -j "pi-chat-${VERSION}.zip" main.js styles.css manifest.json versions.json
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.tag.outputs.version }}
+          name: ${{ steps.tag.outputs.version }}
           files: pi-chat-*.zip
           generate_release_notes: true
         env:
