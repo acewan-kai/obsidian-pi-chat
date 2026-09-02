@@ -1,9 +1,11 @@
 /* Pi Chat plugin styles */
 
 /* Utility: hide an element via a class so we never set style.display
-   directly (the Obsidian linter forbids inline style assignment). */
-.pi-chat-hidden {
-  display: none !important;
+   directly (the Obsidian linter forbids inline style assignment). The
+   selector is namespaced under the root to give it enough specificity
+   to override Obsidian theme defaults without using !important. */
+.pi-chat-root .pi-chat-hidden {
+  display: none;
 }
 
 .pi-chat-root {

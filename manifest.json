@@ -1,9 +1,9 @@
 {
   "id": "local-pi-chat",
   "name": "Pi Chat",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minAppVersion": "1.7.0",
-  "description": "Chat with a locally running pi coding agent from inside Obsidian. Streams replies, folds thinking and tool calls, and persists every conversation as a Markdown note in the vault.",
+  "description": "Chat with a locally running pi coding agent. Streams replies, folds thinking and tool calls, and persists every conversation as a Markdown note in the vault.",
   "author": "acewan",
   "authorUrl": "https://github.com/acewan-kai",
   "isDesktopOnly": true

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-09-02
+
+### Changed
+- **Description**: removed the word "Obsidian" from the description field
+  to satisfy the automated review.
+- **Styles**: removed `!important` from the `.pi-chat-hidden` utility; the
+  class now relies on selector specificity (`.pi-chat-root .pi-chat-hidden`)
+  to override theme defaults.
+- **README**: documented the three intentional linter warnings
+  (`no-direct-fs`, `no-shell-execution`, `no-vault-enumeration`) so users
+  and reviewers understand what the plugin does and why.
+
 ## [0.3.0] - 2026-09-02
 
 ### Changed

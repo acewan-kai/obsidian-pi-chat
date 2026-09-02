@@ -117,6 +117,30 @@ Everything stays on your machine. The vault server only listens on
 (Anthropic, OpenAI, local, etc.); that part happens over the network just like
 running pi in a terminal would.
 
+### What the plugin does NOT do
+
+- It does **not** phone home. There are no telemetry endpoints, no analytics,
+  no remote crash reporting.
+- The vault server binds to `127.0.0.1` only, so other devices on your
+  network cannot reach it.
+- The chat history saved into your vault is plain Markdown you can read,
+  edit, or delete at any time.
+
+### What the plugin DOES (and why)
+
+Three things the Obsidian linter flags as "warnings" for this plugin, by
+design — we can't avoid them without breaking the feature set:
+
+| Linter warning | What we use it for |
+|---|---|
+| `obsidianmd/no-direct-fs` | The plugin needs to read the filesystem to **locate the `node` and `pi` binaries** when the user installs them outside of `PATH`. |
+| `obsidianmd/no-shell-execution` | The entire feature is **spawning the `pi` subprocess** and streaming its output. The plugin is a UI shell for that subprocess. |
+| `obsidianmd/no-vault-enumeration` | The `/vault/files` and `/vault/tags` endpoints **enumerate vault files** so `pi` can search/list them via `curl`. The default `denyPatterns` (`.obsidian/`, `.trash/`, `private/`) lets you exclude sensitive folders. |
+
+The `Allow writes` setting is **off by default**. When it is on, the plugin
+can create or modify notes in your vault — never anywhere else on your disk.
+To completely opt out of write access, leave the toggle off.
+
 ## Development
 
 ```bash
