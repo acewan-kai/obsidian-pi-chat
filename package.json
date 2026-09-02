@@ -1,0 +1,26 @@
+{
+  "name": "obsidian-pi-chat",
+  "version": "0.1.0",
+  "description": "Chat with your local pi coding agent inside Obsidian. Reads your vault via local HTTP endpoints.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "pi",
+    "ai",
+    "chat"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.20.0",
+    "obsidian": "^1.5.7",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  }
+}

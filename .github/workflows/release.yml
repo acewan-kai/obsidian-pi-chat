@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Update versions.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const m = require('./manifest.json');
+            let v = {};
+            try { v = JSON.parse(fs.readFileSync('versions.json', 'utf8')); } catch {}
+            v[m.version] = m.minAppVersion;
+            fs.writeFileSync('versions.json', JSON.stringify(v, null, 2) + '\n');
+          "
+
+      - name: Package
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          zip -j "pi-chat-${VERSION}.zip" main.js styles.css manifest.json versions.json
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pi-chat-*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

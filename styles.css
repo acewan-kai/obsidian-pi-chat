@@ -1,0 +1,350 @@
+/* Pi Chat plugin styles */
+
+.pi-chat-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: var(--font-ui-small);
+}
+
+/* Make text inside messages selectable. Obsidian themes or plugin scopes
+   may otherwise apply `user-select: none` to container elements, which
+   breaks copy/paste on the whole message. We scope the override to the
+   actual content nodes and leave interactive controls alone. */
+.pi-chat-text,
+.pi-chat-body,
+.pi-chat-thinking-inner,
+.pi-chat-tool-args,
+.pi-chat-tool-result,
+.pi-chat-error,
+.pi-chat-msg-user .pi-chat-text,
+.pi-chat-msg-assistant .pi-chat-text {
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
+.pi-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.pi-chat-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pi-chat-title-text {
+  font-weight: 600;
+  font-size: var(--font-ui-medium);
+}
+
+.pi-chat-model {
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+}
+
+.pi-chat-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pi-chat-actions button {
+  padding: 2px 8px;
+  font-size: var(--font-smallest);
+}
+
+.pi-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pi-chat-empty {
+  margin: auto;
+  text-align: center;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+}
+
+.pi-chat-empty-icon {
+  font-size: 32px;
+}
+
+.pi-chat-empty-hints {
+  font-size: var(--font-smallest);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.pi-chat-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.pi-chat-msg-user {
+  background: var(--background-primary-alt);
+}
+
+.pi-chat-msg-assistant {
+  background: var(--background-secondary);
+}
+
+.pi-chat-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+}
+
+.pi-chat-role {
+  font-weight: 600;
+}
+
+.pi-chat-role-user {
+  color: var(--text-accent);
+}
+
+.pi-chat-role-assistant {
+  color: var(--color-purple);
+}
+
+.pi-chat-body {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.pi-chat-body-streaming .pi-chat-text-stream:not(:empty)::after {
+  content: "▍";
+  display: inline-block;
+  margin-left: 1px;
+  animation: pi-chat-blink 1s steps(2, start) infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes pi-chat-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.pi-chat-thinking {
+  margin: 6px 0;
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+}
+
+.pi-chat-thinking summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.pi-chat-thinking summary::before {
+  content: "●";
+  display: inline-block;
+  margin-right: 4px;
+  color: var(--text-muted);
+  animation: pi-chat-thinking-pulse 1.4s ease-in-out infinite;
+}
+
+.pi-chat-thinking.is-done summary::before {
+  content: "✓";
+  color: var(--color-green);
+  animation: none;
+}
+
+.pi-chat-thinking-inner {
+  padding: 6px 8px;
+  background: var(--background-primary);
+  border-radius: 4px;
+  font-family: var(--font-monospace);
+  font-size: var(--font-smallest);
+  white-space: pre-wrap;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+@keyframes pi-chat-thinking-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.pi-chat-toolcalls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.pi-chat-tool-details {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pi-chat-tool-details.pi-chat-tool-running {
+  border-color: var(--color-yellow);
+}
+
+.pi-chat-tool-details.pi-chat-tool-ok {
+  border-color: var(--color-green);
+}
+
+.pi-chat-tool-details.pi-chat-tool-error {
+  border-color: var(--color-red);
+}
+
+.pi-chat-tool-summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-monospace);
+  font-size: var(--font-smallest);
+  background: var(--background-secondary);
+  list-style: none;
+}
+
+.pi-chat-tool-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pi-chat-tool-summary::before {
+  content: "▶";
+  display: inline-block;
+  width: 10px;
+  color: var(--text-muted);
+  font-size: 9px;
+  transition: transform 0.15s;
+}
+
+.pi-chat-tool-details[open] > .pi-chat-tool-summary::before {
+  transform: rotate(90deg);
+}
+
+.pi-chat-tool-summary:hover {
+  background: var(--background-modifier-hover);
+}
+
+.pi-chat-tool-name {
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.pi-chat-tool-args-hint {
+  color: var(--text-muted);
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.pi-chat-tool-body {
+  padding: 6px 8px;
+  background: var(--background-primary);
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.pi-chat-tool-args,
+.pi-chat-tool-result {
+  font-family: var(--font-monospace);
+  font-size: var(--font-smallest);
+  background: var(--background-modifier-border);
+  padding: 4px 6px;
+  border-radius: 3px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 400px;
+  overflow-y: auto;
+  margin: 4px 0;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.pi-chat-error {
+  background: var(--background-modifier-error);
+  color: var(--text-error);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: var(--font-smallest);
+  margin-top: 6px;
+}
+
+.pi-chat-input-area {
+  border-top: 1px solid var(--background-modifier-border);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pi-chat-status {
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+}
+
+.pi-chat-input-row {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.pi-chat-input {
+  flex: 1;
+  resize: none;
+  font-family: inherit;
+  font-size: var(--font-ui-small);
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+}
+
+.pi-chat-input:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+}
+
+.pi-chat-send,
+.pi-chat-abort {
+  padding: 6px 12px;
+  font-size: var(--font-ui-small);
+}
+
+.pi-chat-abort {
+  background: var(--background-modifier-error);
+  color: var(--text-on-accent);
+}
+
+.pi-chat-settings-status {
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+  padding: 6px 0;
+}
