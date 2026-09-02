@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-09-02
+
+### Changed
+- **minAppVersion** bumped from `1.7.0` to `1.10.0` (the linter still flagged
+  `workspace.revealLeaf` against the 1.7 floor; 1.10 is comfortably in
+  the modern-Obsidian range).
+- **Settings heading** renamed from "Pi Chat" to "Configuration" so the
+  plugin name isn't repeated at the top of its own settings tab.
+
 ## [0.4.0] - 2026-09-02
 
 ### Changed

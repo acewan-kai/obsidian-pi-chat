@@ -1,8 +1,8 @@
 {
   "id": "local-pi-chat",
   "name": "Pi Chat",
-  "version": "0.4.0",
-  "minAppVersion": "1.7.0",
+  "version": "0.5.0",
+  "minAppVersion": "1.10.0",
   "description": "Chat with a locally running pi coding agent. Streams replies, folds thinking and tool calls, and persists every conversation as a Markdown note in the vault.",
   "author": "acewan",
   "authorUrl": "https://github.com/acewan-kai",

@@ -19,7 +19,9 @@ export class PiChatSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new Setting(containerEl).setName("Pi Chat").setHeading();
+    // The plugin name is already shown in the plugin list, so the settings
+    // tab uses a generic heading instead of repeating it.
+    new Setting(containerEl).setName("Configuration").setHeading();
     containerEl.createEl("p", {
       text:
         "Chat with your local pi coding agent. " +
