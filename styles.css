@@ -1,5 +1,11 @@
 /* Pi Chat plugin styles */
 
+/* Utility: hide an element via a class so we never set style.display
+   directly (the Obsidian linter forbids inline style assignment). */
+.pi-chat-hidden {
+  display: none !important;
+}
+
 .pi-chat-root {
   display: flex;
   flex-direction: column;

@@ -34,6 +34,8 @@ export default class PiChatPlugin extends Plugin {
   private currentChatPath: string | null = null;
   private currentChatCreatedAt: string | null = null;
   private currentChatTopic: string | null = null;
+  // chatView is set by PiChatView.onOpen and cleared in onClose. Do NOT assign
+  // it from inside registerView — the Obsidian linter flags that as a memory leak.
   private chatView: PiChatView | null = null;
 
   async onload() {
@@ -70,13 +72,12 @@ export default class PiChatPlugin extends Plugin {
       this.settings.chatHistoryTag,
     );
 
-    // Register the chat view.
+    // Register the chat view. The view instance is NOT stored on the plugin
+    // here to avoid the memory-leak pattern flagged by the official linter.
+    // PiChatView registers/unregisters itself via onOpen/onClose instead.
     this.registerView(
       VIEW_TYPE_PI_CHAT,
-      (leaf) => {
-        this.chatView = new PiChatView(leaf, this);
-        return this.chatView;
-      },
+      (leaf) => new PiChatView(leaf, this),
     );
 
     // Ribbon icon.
@@ -334,6 +335,20 @@ export default class PiChatPlugin extends Plugin {
       ev.type === "error"
     ) {
       this.chatView?.applyEvent(ev);
+    }
+  }
+
+  /**
+   * PiChatView.onOpen calls this so the plugin knows where to forward
+   * streaming events. unregisterChatView is called from onClose.
+   */
+  registerChatView(view: PiChatView): void {
+    this.chatView = view;
+  }
+
+  unregisterChatView(view: PiChatView): void {
+    if (this.chatView === view) {
+      this.chatView = null;
     }
   }
 }

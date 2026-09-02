@@ -19,7 +19,7 @@ export class PiChatSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "Pi Chat" });
+    new Setting(containerEl).setName("Pi Chat").setHeading();
     containerEl.createEl("p", {
       text:
         "Chat with your local pi coding agent. " +
@@ -87,7 +87,7 @@ export class PiChatSettingTab extends PluginSettingTab {
           }),
       );
 
-    containerEl.createEl("h3", { text: "Vault server" });
+    new Setting(containerEl).setName("Vault server").setHeading();
 
     new Setting(containerEl)
       .setName("HTTP port")
@@ -167,7 +167,7 @@ export class PiChatSettingTab extends PluginSettingTab {
           }),
       );
 
-    containerEl.createEl("h3", { text: "Chat history" });
+    new Setting(containerEl).setName("Chat history").setHeading();
 
     new Setting(containerEl)
       .setName("Autosave chat to vault")
@@ -207,7 +207,7 @@ export class PiChatSettingTab extends PluginSettingTab {
           }),
       );
 
-    containerEl.createEl("h3", { text: "Status" });
+    new Setting(containerEl).setName("Status").setHeading();
 
     const status = containerEl.createDiv({ cls: "pi-chat-settings-status" });
     const port = this.plugin.getVaultServerPort();

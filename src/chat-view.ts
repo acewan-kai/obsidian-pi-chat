@@ -54,6 +54,10 @@ export class PiChatView extends ItemView {
   }
 
   async onOpen(): Promise<void> {
+    // Self-register with the plugin so the plugin can forward streaming
+    // events to us. We unregister in onClose to avoid dangling references.
+    this.plugin.registerChatView(this);
+
     const root = this.containerEl.children[1] as HTMLElement;
     root.empty();
     root.addClass("pi-chat-root");
@@ -105,7 +109,7 @@ export class PiChatView extends ItemView {
     this.sendBtn.addEventListener("click", () => this.sendCurrentMessage());
 
     this.abortBtn = inputRow.createEl("button", { text: "Stop", cls: "pi-chat-abort" });
-    this.abortBtn.style.display = "none";
+    this.abortBtn.addClass("pi-chat-hidden");
     this.abortBtn.addEventListener("click", () => this.abortRun());
 
     // Listen to selection changes so /vault/selection has fresh data.
@@ -117,6 +121,7 @@ export class PiChatView extends ItemView {
 
   async onClose(): Promise<void> {
     if (this.isRunning) this.abortRun();
+    this.plugin.unregisterChatView(this);
   }
 
   // -----------------------------------------------------------------------
@@ -424,7 +429,7 @@ export class PiChatView extends ItemView {
     // Thinking block: hide if empty, otherwise mark done + update summary.
     if (this.currentThinkingDetails) {
       if (this.currentThinkingText.length === 0) {
-        this.currentThinkingDetails.style.display = "none";
+        this.currentThinkingDetails.addClass("pi-chat-hidden");
       } else {
         this.currentThinkingDetails.classList.add("is-done");
         this.updateThinkingSummary();
@@ -447,8 +452,8 @@ export class PiChatView extends ItemView {
 
   private setRunning(running: boolean) {
     this.isRunning = running;
-    this.sendBtn.style.display = running ? "none" : "";
-    this.abortBtn.style.display = running ? "" : "none";
+    this.sendBtn.toggleClass("pi-chat-hidden", running);
+    this.abortBtn.toggleClass("pi-chat-hidden", !running);
     this.inputEl.disabled = running;
     this.updateSendButtonState();
   }

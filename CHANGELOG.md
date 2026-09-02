@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-09-02
+
+### Changed
+- **Description** rewritten to remove self-references ("this plugin...")
+  to satisfy Obsidian's automated review.
+- **minAppVersion** bumped from `1.5.0` to `1.7.0` (the linter flagged
+  `workspace.revealLeaf` as newer than the declared min version).
+- **Release artifacts** now uploaded as individual files
+  (`main.js`, `manifest.json`, `styles.css`, `versions.json`) in addition
+  to the versioned `pi-chat-X.Y.Z.zip`. Obsidian's automated review
+  explicitly checks for these as separate release assets.
+
+### Fixed
+- **Memory-leak pattern**: the chat view no longer assigns itself to
+  `plugin.chatView` from inside the `registerView` factory. It now
+  self-registers in `onOpen` and unregisters in `onClose`, which is the
+  pattern Obsidian's linter accepts.
+- **Static style assignment**: replaced `element.style.display = ...` with
+  a `.pi-chat-hidden` CSS class toggled via `addClass`/`removeClass`/`toggleClass`.
+- **Heading elements**: settings headings (`<h2>` / `<h3>`) replaced with
+  `new Setting(containerEl).setName(...).setHeading()` for consistent styling.
+
 ## [0.2.0] - 2026-09-02
 
 ### Changed
